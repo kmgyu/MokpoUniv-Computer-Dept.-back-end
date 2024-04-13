@@ -50,11 +50,10 @@ jobs:
 
       - name: Deploy to server
         uses: appleboy/ssh-action@master
-        id: deploy
         with:
-          host: ${{ secrets.HOST }}
-          username: ubuntu
-          key: ${{ secrets.KEY }}
+          host: ${{ secrets.AWS_SSH_HOST }}
+          username: ${{ secrets.AWS_SSH_USERNAME }}
+          key: ${{ secrets.AWS_SSH_KEY  }}
           envs: GITHUB_SHA
           script: |
             sudo docker rm -f $(docker ps -qa)
