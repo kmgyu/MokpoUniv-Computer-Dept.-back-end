@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Service
 public class ForumService {
 
-    ForumRepository forumRepo;
+    final ForumRepository forumRepo;
 
     public boolean addItem(ForumEntity forumEntity) {
         try {
