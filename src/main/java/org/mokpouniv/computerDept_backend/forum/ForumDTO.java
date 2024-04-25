@@ -14,7 +14,10 @@ public class ForumDTO {
     private String Title;
     private String content;
 // 게시자, Original Poster
-    private String writer;
+    private String author;
 
 //    toForumEntity method 만들어둘 것.
+    public ForumEntity toForumEntity() {
+        return new ForumEntity(Title, content, author);
+    }
 }

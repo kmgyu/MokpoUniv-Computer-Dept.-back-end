@@ -1,12 +1,19 @@
 package org.mokpouniv.computerDept_backend.forum;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@RequiredArgsConstructor
 @RequestMapping("/forum")
 @RestController
 public class ForumController {
+
+    private final ForumService forumService;
+
     @GetMapping("/index")
     public String index() {
         return "hi there? this is index of Forum.";
@@ -19,17 +26,19 @@ public class ForumController {
     }
 
     @PostMapping("/create")
-    public String post(@RequestBody ForumDTO forumDTO
-//                        @RequestParam(value = "title") String title,
-//                       @RequestParam(value = "content") String content,
-//                       @RequestParam(value = "writer") String writer
+    public String create(@RequestBody ForumDTO forumDTO
                     ) {
-        System.out.println(forumDTO.getTitle() + " is successfully uploaded");
+        forumService.addItem(forumDTO.toForumEntity());
         return "redirect:/forum/list";
     }
 
-    @GetMapping("/json")
-    public ForumDTO jsonTest() {
-        return new ForumDTO("title", "content", "writer");
+    @GetMapping("/get-names")
+    public List<String> getNames() {
+        return forumService.getItemNames();
     }
+//    @GetMapping("/json")
+//    public ForumDTO jsonTest() {
+//        return new ForumDTO("title", "content", "writer");
+//    }
+
 }
