@@ -5,14 +5,14 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("Notice")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 //@RequiredArgsConstructor
 @Getter
 @Setter
+@Builder
 public class ForumEntity {
-    @Id
+//    @Id
     private String title; // 게시물 제목
     private String author; // 게시물 작성자
     private String content; // 게시물 내용

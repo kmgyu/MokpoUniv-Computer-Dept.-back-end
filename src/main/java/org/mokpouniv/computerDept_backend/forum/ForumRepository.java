@@ -9,12 +9,12 @@ import java.util.List;
 @Repository
 public interface ForumRepository extends MongoRepository<ForumEntity, String> {
     @Query("{title:'?0'}")
-    ForumEntity findGroceryItemByName(String title);
+    ForumEntity findForumEntityByName(String title);
 
     @Query(value = "{author:'?0'}",fields="{'content':1}")
     List<ForumEntity>findAllBy(String author);
 
-    ForumEntity findGroceryItemByTitle(String title);
+    ForumEntity findForumEntityByTitle(String title);
 
     public long count();
 }

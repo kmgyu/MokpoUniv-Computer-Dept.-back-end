@@ -1,6 +1,7 @@
 package org.mokpouniv.computerDept_backend.forum;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 public class ForumDTO {
     private String Title;
