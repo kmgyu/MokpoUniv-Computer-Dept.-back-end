@@ -28,6 +28,13 @@ jobs:
         with:
           java-version: '19'
           distribution: 'temurin'
+
+      - name: Load secrets from GitHub secret
+        env:
+          APPLICATION_SECRET_CONTENT: ${{ secrets.APPLICATION_SECRET_CONTENT }}
+        run: |
+          echo "${APPLICATION_SECRET_CONTENT}" > application-secret.propertie          
+
       # gradle caching - 빌드 시간 향상
       - name: Gradle Caching
         uses: actions/cache@v3
@@ -38,6 +45,8 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
+      # gradle build
       - name: Build with Gradle
         run: |
           chmod +x ./gradlew
@@ -48,6 +57,7 @@ jobs:
           docker build -f Dockerfile -t ${{ secrets.DOCKER_REPO }} .
           docker push ${{ secrets.DOCKER_REPO }}
 
+      # server deploy
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
