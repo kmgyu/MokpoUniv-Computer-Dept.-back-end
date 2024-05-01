@@ -33,8 +33,6 @@ public class UserEntity {
 //    전공
     private String major;
 
-//    권한
-    private String position;
 
     private boolean activated;
 

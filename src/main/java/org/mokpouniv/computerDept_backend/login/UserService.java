@@ -36,6 +36,9 @@ public class UserService {
                 .username(userDto.getUsername())
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .name(userDto.getName())
+                .major(userDto.getMajor())
+                .enrollStatus(userDto.getEnrollStatus())
+                .studentNumber(userDto.getStudentNumber())
                 .authorities(Collections.singleton(authority))
                 .activated(true)
                 .build();
