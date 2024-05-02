@@ -1,15 +1,11 @@
 package org.mokpouniv.computerDept_backend.forum;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 /*
 프론트 - 백 데이터 전송 클래스
  */
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
 public class ForumDTO {
