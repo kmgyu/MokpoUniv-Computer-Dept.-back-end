@@ -5,7 +5,8 @@ import lombok.*;
 /*
 프론트 - 백 데이터 전송 클래스
  */
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 public class ForumDTO {
