@@ -1,8 +1,6 @@
 package org.mokpouniv.computerDept_backend.forum;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,9 +24,27 @@ public class ForumController {
     }
 
     @PostMapping("/create")
-    public String create(@RequestBody ForumDTO forumDTO
+    public String getItemNameForCreate(@RequestBody ForumDTO forumDTO
                     ) {
         forumService.addItem(forumDTO.toForumEntity());
+        return "redirect:/forum/list";
+    }
+    @GetMapping("/search")
+    public String getItemNameForSearch(@RequestParam("title") String title){
+
+        return forumService.readItem(title);
+    }
+    //삭제 기능에 삭제 메세지 떴으면 좋겠음 -> dto형태로
+    //true false, 에러 메세지 보여주기
+    @GetMapping("/delete")
+    public boolean getItemNameForDelete(@RequestParam("id") String id){
+
+        return forumService.deleteItem(id);
+    }
+    @PostMapping("/update")
+    public String getItemNameForUpdate(@RequestBody ForumDTO forumDTO
+    ) {
+        forumService.updateItem(forumDTO.toForumEntity());
         return "redirect:/forum/list";
     }
 
