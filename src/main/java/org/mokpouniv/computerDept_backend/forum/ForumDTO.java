@@ -9,6 +9,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 public class ForumDTO {
+    private String id;  //식별아이디
     private String Title;
     private String content;
 // 게시자, Original Poster
@@ -16,6 +17,6 @@ public class ForumDTO {
 
 //    toForumEntity method 만들어둘 것.
     public ForumEntity toForumEntity() {
-        return new ForumEntity(Title, content, author);
+        return new ForumEntity(id,Title, content, author);
     }
 }
