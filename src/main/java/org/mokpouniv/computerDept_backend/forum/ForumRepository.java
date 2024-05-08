@@ -14,7 +14,5 @@ public interface ForumRepository extends MongoRepository<ForumEntity, String> {
     @Query(value = "{author:'?0'}",fields="{'content':1}")
     List<ForumEntity>findAllBy(String author);
 
-    ForumEntity findForumEntityByTitle(String title);
-
-    public long count();
+    List<ForumEntity> findAllByTitle(String title); // 여러 결과를 반환
 }

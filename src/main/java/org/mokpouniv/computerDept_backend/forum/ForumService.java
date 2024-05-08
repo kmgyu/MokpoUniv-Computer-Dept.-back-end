@@ -3,9 +3,7 @@ package org.mokpouniv.computerDept_backend.forum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -15,61 +13,38 @@ public class ForumService {
     final ForumRepository forumRepo;
 
     // Create
-    public boolean addItem(ForumEntity forumEntity) {
-        try {
-            // UUID를 사용하여 고유한 아이디 생성
-            forumEntity.setId(UUID.randomUUID().toString());
-            forumRepo.save(forumEntity);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    public boolean addItem(ForumDTO forumDTO) {
+        forumDTO.setId(UUID.randomUUID().toString());
+        ForumEntity forumEntity = forumDTO.toForumEntity();
+        if (forumEntity.getTitle() == null || forumEntity.getTitle().isBlank()) { return false; }
+        else if (forumEntity.getAuthor() == null || forumEntity.getAuthor().isBlank()) { return false; }
+        else if (forumEntity.getContent() == null || forumEntity.getContent().isBlank()) { return false; }
+        else { forumRepo.save(forumEntity); return true; }
     }
 
     // Read
-    public String readItem(String title) {
-        ForumEntity item = forumRepo.findForumEntityByTitle(title);
-        return item != null ?
-                "Title: " + item.getTitle() + " Author: " + item.getAuthor() + " Content: " + item.getContent()
-                : "Item not found.";
+    public List<ForumEntity> readItemsByTitle(String title) {
+        return forumRepo.findAllByTitle(title);
     }
 
     // Delete (Using ID)
     public boolean deleteItem(String id) {
-        try {
-            Optional<ForumEntity> optionalItem = forumRepo.findById(id);
-            if (optionalItem.isPresent()) {
-                forumRepo.delete(optionalItem.get());
-                return true;
-            } else {
-                return false; // 해당 id에 해당하는 게시물이 없을 경우 false 반환
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false; // 예외 발생 시 false 반환
-        }
+        if (forumRepo.existsById(id)) {
+            forumRepo.deleteById(id);
+            return true;
+        } else { return false; }
     }
 
     // Update (Using ID)
-    public boolean updateItem(ForumEntity forumEntity) {
-        try {
-            Optional<ForumEntity> optionalItem = forumRepo.findById(forumEntity.getId());
-            if (optionalItem.isPresent()) {
-                ForumEntity item = optionalItem.get();
-
-                // 새로운 정보로 업데이트
-                item.setTitle(forumEntity.getTitle());
-                item.setAuthor(forumEntity.getAuthor());
-                item.setContent(forumEntity.getContent());
-                forumRepo.save(item);
-                return true;
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+    public boolean updateItem(String id) {
+        Optional<ForumEntity> optionalEntity = forumRepo.findById(id);
+        if (optionalEntity.isPresent()) {
+            ForumEntity item = optionalEntity.get();
+            item.setTitle(item.getTitle());
+            item.setContent(item.getContent());
+            forumRepo.save(item);
+            return true;
+        } else { return false; }
     }
 
     // Get all item names

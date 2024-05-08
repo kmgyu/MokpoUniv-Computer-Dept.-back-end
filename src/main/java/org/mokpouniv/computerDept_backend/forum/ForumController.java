@@ -1,6 +1,7 @@
 package org.mokpouniv.computerDept_backend.forum;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,49 +13,43 @@ public class ForumController {
 
     private final ForumService forumService;
 
-    @GetMapping("/index")
-    public String index() {
-        return "hi there? this is index of Forum.";
-    }
-
-//    DB에서 조회해서 데이터를 가져와야 됨.
+    // DB에서 조회해서 데이터를 가져와야 됨.
     @GetMapping("/list")
     public String list() {
         return "hi";
     }
 
+    // 게시글을 만듬 json형태로 보여줌 ( id, title, author, content )
     @PostMapping("/create")
-    public String getItemNameForCreate(@RequestBody ForumDTO forumDTO
-                    ) {
-        forumService.addItem(forumDTO.toForumEntity());
-        return "redirect:/forum/list";
+    public ResponseEntity<ForumEntity> getItemNameForCreate(@RequestBody ForumDTO forumDTO) {
+        boolean item = forumService.addItem(forumDTO);
+        if (item) { return ResponseEntity.ok(forumDTO.toForumEntity()); }
+        else { return ResponseEntity.notFound().build(); }
     }
+
+    // 제목을 기준으로 관련 게시글 전부 json형태로 보여줌
     @GetMapping("/search")
-    public String getItemNameForSearch(@RequestParam("title") String title){
-
-        return forumService.readItem(title);
+    public ResponseEntity<List<ForumEntity>> getItemNameForSearch(@RequestParam("title") String title) {
+        List<ForumEntity> results = forumService.readItemsByTitle(title);
+        return ResponseEntity.ok(results);
     }
-    //삭제 기능에 삭제 메세지 떴으면 좋겠음 -> dto형태로
-    //true false, 에러 메세지 보여주기
-    @GetMapping("/delete")
-    public boolean getItemNameForDelete(@RequestParam("id") String id){
 
+    // id를 기준으로 해당 게시글 삭제 -> true, false 반환
+    @DeleteMapping("/delete")
+    public boolean deleteForum(@RequestParam("id") String id) {
         return forumService.deleteItem(id);
     }
+
+    // id를 기준으로 해당 게시글 제목과 내용만 수정 가능 json형태로 보여줌
     @PostMapping("/update")
-    public String getItemNameForUpdate(@RequestBody ForumDTO forumDTO
-    ) {
-        forumService.updateItem(forumDTO.toForumEntity());
-        return "redirect:/forum/list";
+    public ResponseEntity<ForumEntity> getItemNameForUpdate(@RequestBody ForumDTO forumDTO,
+                                                            @RequestParam("id") String id) {
+        boolean item = forumService.updateItem(id);
+        if (item) { return ResponseEntity.ok(forumDTO.toForumEntity()); }
+        else { return ResponseEntity.notFound().build(); }
     }
 
+    // 모든 게시글의 제목만 보여줌
     @GetMapping("/get-names")
-    public List<String> getNames() {
-        return forumService.getItemNames();
-    }
-//    @GetMapping("/json")
-//    public ForumDTO jsonTest() {
-//        return new ForumDTO("title", "content", "writer");
-//    }
-
+    public List<String> getNames() { return forumService.getItemNames(); }
 }
