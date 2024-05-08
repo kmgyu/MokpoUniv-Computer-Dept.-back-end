@@ -1,5 +1,6 @@
 package org.mokpouniv.computerDept_backend.forum;
 
+import org.mokpouniv.computerDept_backend.forum.notice.NoticeEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -7,12 +8,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ForumRepository extends MongoRepository<ForumEntity, String> {
-    @Query("{title:'?0'}")
-    ForumEntity findForumEntityByName(String title);
+public interface ForumRepository extends MongoRepository<NoticeEntity, String> {
 
     @Query(value = "{author:'?0'}",fields="{'content':1}")
-    List<ForumEntity>findAllBy(String author);
+    List<NoticeEntity> findAllBy(String author);
 
-    List<ForumEntity> findAllByTitle(String title); // 여러 결과를 반환
+    @Query("{_id: ?0}")
+    NoticeEntity findForumEntityById(String id);
+
+    @Query("{title:'?0'}")
+    List<NoticeEntity> findNoticeAllByTitle(String title); // 여러 결과를 반환
 }
