@@ -34,10 +34,10 @@ public class NoticeSummaryDTO {
     private int view;
 
     public NoticeEntity toNoticeEntity() {
-        return NoticeEntity.
-                builder().
-                id(id).
-                title(title)
+        return NoticeEntity
+                .builder()
+                .id(id)
+                .title(title)
                 .author(author)
                 .posted_time(posted_time)
                 .build();

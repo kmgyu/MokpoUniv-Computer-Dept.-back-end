@@ -29,7 +29,7 @@ public class NoticeService {
 
     // Read
     public List<NoticeSummaryDTO> searchNoticeByTitle(String title) {
-        List<NoticeEntity> noticeEntities = forumRepository.findNoticeAllByTitle(title);
+        List<NoticeEntity> noticeEntities = forumRepository.findAllNoticeEntityByTitle(title);
         List<NoticeSummaryDTO> noticeDTOs = new ArrayList<>();
 
         for (NoticeEntity entity : noticeEntities) {
@@ -37,6 +37,12 @@ public class NoticeService {
         }
 
         return noticeDTOs;
+    }
+
+    public NoticeDetailDTO searchNoticeById(String id) {
+        NoticeEntity noticeEntity = forumRepository.findNoticeEntityById(id);
+
+        return noticeEntity.toNoticeDetailDTO();
     }
 
     // Delete (Using ID)
@@ -54,15 +60,16 @@ public class NoticeService {
     }
 
     // Update (Using ID)
-    public boolean updateNotice(String id) {
+    public NoticeDetailDTO updateNotice(String id, NoticeDetailDTO noticeDetailDTO) {
         Optional<NoticeEntity> optionalEntity = forumRepository.findById(id);
         if (optionalEntity.isPresent()) {
             NoticeEntity item = optionalEntity.get();
-            item.setTitle(item.getTitle());
-            item.setContent(item.getContent());
+
+            item.setTitle(noticeDetailDTO.getTitle());
+            item.setContent(noticeDetailDTO.getContent());
             forumRepository.save(item);
-            return true;
-        } else { return false; }
+            return item.toNoticeDetailDTO();
+        } else { return null; }
     }
 
     // Get all item names
