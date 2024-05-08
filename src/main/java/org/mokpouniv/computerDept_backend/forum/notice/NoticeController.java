@@ -15,9 +15,9 @@ public class NoticeController {
 
     // 게시글을 만듬 json형태로 보여줌 ( id, title, author, content )
     @PostMapping("/create")
-    public ResponseEntity<NoticeEntity> createNotice(@RequestBody NoticeDetailDTO noticeDetailDTO) {
+    public ResponseEntity<NoticeDetailDTO> createNotice(@RequestBody NoticeDetailDTO noticeDetailDTO) {
         boolean item = noticeService.addNotice(noticeDetailDTO);
-        if (item) { return ResponseEntity.ok(noticeDetailDTO.toNoticeEntity()); }
+        if (item) { return ResponseEntity.ok(noticeDetailDTO); }
         else { return ResponseEntity.notFound().build(); }
     }
 
@@ -27,7 +27,6 @@ public class NoticeController {
         List<NoticeSummaryDTO> results = noticeService.searchNoticeByTitle(title);
         return ResponseEntity.ok(results);
     }
-
 
     /**
      * id를 기준으로 해당 게시글 삭제 -> true, false 반환
@@ -44,6 +43,7 @@ public class NoticeController {
 
     /**
      * id를 기준으로 해당 게시글 제목과 내용만 수정 가능 json형태로 보여줌
+     * 수정한 내용을 반환하며, 없으면 null 반환.
      * @param noticeDetailDTO
      * @param id
      * @return
@@ -51,8 +51,8 @@ public class NoticeController {
     @PostMapping("/update")
     public ResponseEntity<NoticeDetailDTO> updateNotice(@RequestBody NoticeDetailDTO noticeDetailDTO,
                                                      @RequestParam("id") String id) {
-        boolean response = noticeService.updateNotice(id);
-        if (response) { return ResponseEntity.ok(noticeDetailDTO); }
+        NoticeDetailDTO response = noticeService.updateNotice(id, noticeDetailDTO);
+        if (response != null) { return ResponseEntity.ok(noticeDetailDTO); }
         else { return ResponseEntity.notFound().build(); }
     }
 
@@ -63,7 +63,7 @@ public class NoticeController {
      */
     @GetMapping("/detail")
     public NoticeDetailDTO getDetailNotice(@RequestParam String id) {
-        return null;
+        return noticeService.searchNoticeById(id);
     }
     // 모든 게시글의 제목만 보여줌
 //    @GetMapping("/get-names")

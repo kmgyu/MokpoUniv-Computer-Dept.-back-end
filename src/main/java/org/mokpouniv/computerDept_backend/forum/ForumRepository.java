@@ -11,11 +11,11 @@ import java.util.List;
 public interface ForumRepository extends MongoRepository<NoticeEntity, String> {
 
     @Query(value = "{author:'?0'}",fields="{'content':1}")
-    List<NoticeEntity> findAllBy(String author);
+    List<NoticeEntity> findAllNoticeEntityBy(String author);
 
     @Query("{_id: ?0}")
-    NoticeEntity findForumEntityById(String id);
+    NoticeEntity findNoticeEntityById(String id);
 
     @Query("{title:'?0'}")
-    List<NoticeEntity> findNoticeAllByTitle(String title); // 여러 결과를 반환
+    List<NoticeEntity> findAllNoticeEntityByTitle(String title); // 여러 결과를 반환
 }

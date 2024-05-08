@@ -56,7 +56,7 @@ public class NoticeEntity {
                 .posted_time(posted_time)
                 .author(author)
                 .view(view)
-                .file(!fileDTOList.isEmpty())
+                .file(fileDTOList != null)
                 .build();
     }
 
