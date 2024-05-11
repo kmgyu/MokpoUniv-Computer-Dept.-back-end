@@ -28,7 +28,7 @@ public class ForumService {
 
     // Read
     public String readItem(String title) {
-        ForumEntity item = forumRepo.findForumEntityByTitle(title);
+        ForumEntity item = forumRepo.findAllByTitleRegex(title);
         return item != null ?
                 "Title: " + item.getTitle() + " Author: " + item.getAuthor() + " Content: " + item.getContent()
                 : "Item not found.";
