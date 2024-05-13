@@ -22,7 +22,7 @@ public class NoticeController {
     }
 
     // 제목을 기준으로 관련 게시글 전부 json형태로 보여줌
-    @GetMapping("/search")
+    @GetMapping("/")
     public ResponseEntity<List<NoticeSummaryDTO>> searchNotices(@RequestParam("title") String title) {
         List<NoticeSummaryDTO> results = noticeService.searchNoticeByTitle(title);
         return ResponseEntity.ok(results);
@@ -35,7 +35,7 @@ public class NoticeController {
      * @param id
      * @return boolean
      */
-    @DeleteMapping("/delete")
+    @DeleteMapping("/")
     public boolean deleteNotice(@RequestParam("id") String id) {
         return noticeService.deleteNotice(id);
     }
@@ -48,7 +48,7 @@ public class NoticeController {
      * @param id
      * @return
      */
-    @PostMapping("/update")
+    @PatchMapping("/")
     public ResponseEntity<NoticeDetailDTO> updateNotice(@RequestBody NoticeDetailDTO noticeDetailDTO,
                                                      @RequestParam("id") String id) {
         NoticeDetailDTO response = noticeService.updateNotice(id, noticeDetailDTO);
