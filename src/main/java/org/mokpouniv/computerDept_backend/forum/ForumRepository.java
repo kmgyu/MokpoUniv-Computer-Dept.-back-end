@@ -16,6 +16,7 @@ public interface ForumRepository extends MongoRepository<NoticeEntity, String> {
     @Query("{_id: ?0}")
     NoticeEntity findNoticeEntityById(String id);
 
-    @Query("{title:'?0'}")
+    // 문자열 포함시 모두 반환
+    @Query("{title:'*.?0*.'}")
     List<NoticeEntity> findAllNoticeEntityByTitle(String title); // 여러 결과를 반환
 }
