@@ -29,7 +29,11 @@ public class NoticeController {
     @GetMapping("/")
     public ResponseEntity<List<NoticeSummaryDTO>> searchNotices(@RequestParam("title") String title) {
         List<NoticeSummaryDTO> results = noticeService.searchNoticeByTitle(title);
-        return ResponseEntity.ok(results);
+        if (results.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(results);
+        }
     }
 
     /**
@@ -39,12 +43,12 @@ public class NoticeController {
      * @param id
      * @return boolean
      */
-    @DeleteMapping("/")
-    public ResponseEntity<?> deleteNotice(@RequestParam("id") String id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteNotice(@PathVariable String id) {
         if (noticeService.deleteNotice(id)) {
             return ResponseEntity.ok().build();
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         }
     }
 
@@ -60,8 +64,13 @@ public class NoticeController {
     public ResponseEntity<NoticeDetailDTO> updateNotice(@RequestBody NoticeDetailDTO noticeDetailDTO,
                                                      @PathVariable String id) {
         NoticeDetailDTO response = noticeService.updateNotice(id, noticeDetailDTO);
-        if (response != null) { return ResponseEntity.ok(noticeDetailDTO); }
-        else { return ResponseEntity.notFound().build(); }
+
+        if (response != null) {
+            return ResponseEntity.ok(noticeDetailDTO);
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     /**
@@ -69,8 +78,8 @@ public class NoticeController {
      * @param id
      * @return
      */
-    @GetMapping("/detail")
-    public NoticeDetailDTO getDetailNotice(@RequestParam String id) {
+    @GetMapping("/{id}")
+    public NoticeDetailDTO getDetailNotice(@PathVariable String id) {
         return noticeService.searchNoticeById(id);
     }
     // 모든 게시글의 제목만 보여줌
