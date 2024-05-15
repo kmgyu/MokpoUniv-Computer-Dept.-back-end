@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -16,9 +17,12 @@ public class NoticeController {
     // 게시글을 만듬 json형태로 보여줌 ( id, title, author, content )
     @PostMapping("/create")
     public ResponseEntity<NoticeDetailDTO> createNotice(@RequestBody NoticeDetailDTO noticeDetailDTO) {
-        boolean item = noticeService.addNotice(noticeDetailDTO);
-        if (item) { return ResponseEntity.ok(noticeDetailDTO); }
-        else { return ResponseEntity.notFound().build(); }
+        String noticeId = noticeService.addNotice(noticeDetailDTO);
+        if (noticeId != null ) {
+            return ResponseEntity.created(URI.create("/notice/" + noticeId))
+                    .build();
+        }
+        else { return ResponseEntity.badRequest().build(); }
     }
 
     // 제목을 기준으로 관련 게시글 전부 json형태로 보여줌
@@ -36,8 +40,12 @@ public class NoticeController {
      * @return boolean
      */
     @DeleteMapping("/")
-    public boolean deleteNotice(@RequestParam("id") String id) {
-        return noticeService.deleteNotice(id);
+    public ResponseEntity<?> deleteNotice(@RequestParam("id") String id) {
+        if (noticeService.deleteNotice(id)) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
@@ -48,9 +56,9 @@ public class NoticeController {
      * @param id
      * @return
      */
-    @PatchMapping("/")
+    @PatchMapping("/{id}")
     public ResponseEntity<NoticeDetailDTO> updateNotice(@RequestBody NoticeDetailDTO noticeDetailDTO,
-                                                     @RequestParam("id") String id) {
+                                                     @PathVariable String id) {
         NoticeDetailDTO response = noticeService.updateNotice(id, noticeDetailDTO);
         if (response != null) { return ResponseEntity.ok(noticeDetailDTO); }
         else { return ResponseEntity.notFound().build(); }
