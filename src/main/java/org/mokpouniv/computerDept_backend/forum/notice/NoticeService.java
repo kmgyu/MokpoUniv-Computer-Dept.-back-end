@@ -19,12 +19,12 @@ public class NoticeService {
      * @param noticeDetailDTO
      * @return
      */
-    public boolean addNotice(NoticeDetailDTO noticeDetailDTO) {
+    public String addNotice(NoticeDetailDTO noticeDetailDTO) {
         noticeDetailDTO.setId(UUID.randomUUID().toString());
         NoticeEntity noticeEntity = noticeDetailDTO.toNoticeEntity();
 
         forumRepository.save(noticeEntity);
-        return true;
+        return noticeEntity.getId();
     }
 
     // Read
