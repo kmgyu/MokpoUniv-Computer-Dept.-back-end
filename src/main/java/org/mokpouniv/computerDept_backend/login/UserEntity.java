@@ -14,7 +14,7 @@ import java.util.Set;
 @Setter
 @Builder
 @AllArgsConstructor
-@JsonIgnoreProperties(value = {"userid", "studentNumber", "password", "activated"})
+@JsonIgnoreProperties(value = {"username", "studentNumber", "password", "activated"})
 public class UserEntity {
 //    @Id
 //    private String PK;

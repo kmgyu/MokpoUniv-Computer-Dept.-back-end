@@ -2,6 +2,7 @@ package org.mokpouniv.computerDept_backend.forum.notice;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.mokpouniv.computerDept_backend.forum.file.FileDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;

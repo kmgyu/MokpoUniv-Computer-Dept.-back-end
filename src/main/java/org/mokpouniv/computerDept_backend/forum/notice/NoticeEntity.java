@@ -1,6 +1,7 @@
 package org.mokpouniv.computerDept_backend.forum.notice;
 
 import lombok.*;
+import org.mokpouniv.computerDept_backend.forum.file.FileDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
