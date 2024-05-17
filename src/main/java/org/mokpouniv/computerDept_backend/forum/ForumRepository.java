@@ -20,6 +20,4 @@ public interface ForumRepository extends MongoRepository<NoticeEntity, String> {
     @Query(value = "{ 'title': { $regex: ?0, $options: 'i' } }")
     List<NoticeEntity> findAllNoticeEntityByTitle(String title); // 여러 결과를 반환
 
-
-
 }

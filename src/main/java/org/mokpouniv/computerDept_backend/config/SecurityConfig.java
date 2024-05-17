@@ -55,6 +55,8 @@ public class SecurityConfig {
                         .requestMatchers("/login/signup").permitAll() // 회원가입 api
 //                        .requestMatchers(PathRequest.toH2Console()).permitAll()// h2-console, favicon.ico 요청 인증 무시
                         .requestMatchers("/favicon.ico").permitAll()
+                        .requestMatchers("/notice/").permitAll()
+                        .requestMatchers("/notice/create").hasAuthority("ROLE_USER") // 유저 권한 존재 시
                         .anyRequest().authenticated() // 그 외 인증 없이 접근X
                 )
                 .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);// JwtFilter를 addFilterBefore로 등록했던 JwtSecurityConfig class 적용

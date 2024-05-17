@@ -78,7 +78,7 @@ public class NoticeController {
      * @param id
      * @return
      */
-    @GetMapping("/{id}")
+    @GetMapping("/detail/{id}")
     public NoticeDetailDTO getDetailNotice(@PathVariable String id) {
         return noticeService.searchNoticeById(id);
     }
