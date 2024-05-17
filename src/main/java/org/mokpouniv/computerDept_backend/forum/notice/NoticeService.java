@@ -62,6 +62,7 @@ public class NoticeService {
     // Update (Using ID)
     public NoticeDetailDTO updateNotice(String id, NoticeDetailDTO noticeDetailDTO) {
         Optional<NoticeEntity> optionalEntity = forumRepository.findById(id);
+        // 작성자 id도 판별 할 것?
         if (optionalEntity.isPresent()) {
             NoticeEntity item = optionalEntity.get();
 
@@ -72,9 +73,4 @@ public class NoticeService {
         } else { return null; }
     }
 
-    // Get all item names
-    // 안쓰는 더미 코드
-    public List<String> getItemNames() {
-        return forumRepository.findAll().stream().map(NoticeEntity::getTitle).collect(Collectors.toList());
-    }
 }

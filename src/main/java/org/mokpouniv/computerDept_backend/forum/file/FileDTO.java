@@ -1,4 +1,4 @@
-package org.mokpouniv.computerDept_backend.forum.notice;
+package org.mokpouniv.computerDept_backend.forum.file;
 
 import lombok.*;
 
