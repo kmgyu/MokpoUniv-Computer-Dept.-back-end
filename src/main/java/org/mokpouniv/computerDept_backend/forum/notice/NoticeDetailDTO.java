@@ -6,6 +6,7 @@ import org.mokpouniv.computerDept_backend.forum.file.FileDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 
 @NoArgsConstructor
@@ -15,8 +16,9 @@ import java.util.List;
 @Builder
 public class NoticeDetailDTO {
     // 공지는 댓글이 없다.
-    // 서비스에서 id를 생성해준다.
-    private String id;
+    // default로 uuid 생성
+    @Builder.Default
+    private String id = UUID.randomUUID().toString();
 
     @NotBlank(message = "제목을 입력해주세요")
     private String title;

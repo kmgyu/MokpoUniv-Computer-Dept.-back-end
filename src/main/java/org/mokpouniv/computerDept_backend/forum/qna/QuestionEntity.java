@@ -2,6 +2,7 @@ package org.mokpouniv.computerDept_backend.forum.qna;
 
 import lombok.*;
 import org.mokpouniv.computerDept_backend.forum.comment.CommentDTO;
+import org.mokpouniv.computerDept_backend.forum.comment.CommentEntity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -28,5 +29,4 @@ public class QuestionEntity {
 
     private LocalDateTime posted_time;
 
-    private List<CommentDTO> commentDTOList;
 }
