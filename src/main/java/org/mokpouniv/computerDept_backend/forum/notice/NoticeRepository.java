@@ -1,4 +1,4 @@
-package org.mokpouniv.computerDept_backend.forum;
+package org.mokpouniv.computerDept_backend.forum.notice;
 
 import org.mokpouniv.computerDept_backend.forum.notice.NoticeEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ForumRepository extends MongoRepository<NoticeEntity, String> {
+public interface NoticeRepository extends MongoRepository<NoticeEntity, String> {
 
-    @Query(value = "{author:'?0'}",fields="{'content':1}")
+    @Query(value = "{author:'?0'}")
     List<NoticeEntity> findAllNoticeEntityBy(String author);
 
     @Query("{_id: ?0}")

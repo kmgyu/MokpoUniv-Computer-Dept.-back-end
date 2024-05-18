@@ -5,6 +5,7 @@ import org.mokpouniv.computerDept_backend.forum.comment.CommentDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,7 +13,9 @@ import java.util.List;
 @Getter
 @Setter
 public class QuestionDetailDTO {
-    private String id;  //식별아이디
+
+    @Builder.Default
+    private String id = UUID.randomUUID().toString();  //식별아이디
 
     private String title; // 게시물 제목
 

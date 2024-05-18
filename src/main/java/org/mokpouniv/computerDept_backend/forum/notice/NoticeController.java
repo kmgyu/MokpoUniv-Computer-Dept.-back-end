@@ -17,7 +17,7 @@ public class NoticeController {
     // 게시글을 만듬 json형태로 보여줌 ( id, title, author, content )
     @PostMapping("/create")
     public ResponseEntity<NoticeDetailDTO> createNotice(@RequestBody NoticeDetailDTO noticeDetailDTO) {
-        String noticeId = noticeService.addNotice(noticeDetailDTO);
+        String noticeId = noticeService.saveNotice(noticeDetailDTO);
         if (noticeId != null ) {
             return ResponseEntity.created(URI.create("/notice/" + noticeId))
                     .build();

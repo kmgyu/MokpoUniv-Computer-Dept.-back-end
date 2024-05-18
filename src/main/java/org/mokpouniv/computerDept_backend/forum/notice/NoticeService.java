@@ -1,35 +1,32 @@
 package org.mokpouniv.computerDept_backend.forum.notice;
 
 import lombok.RequiredArgsConstructor;
-import org.mokpouniv.computerDept_backend.forum.ForumRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class NoticeService {
 
     // notice에서 사용하므로 notice의 기능만을 사용하도록 이름 명시를 해야하나?
-    final ForumRepository forumRepository;
+    private final NoticeRepository noticeRepository;
 
     /**
      * id를 uuid를 이용해 난수 문자열 생성
      * @param noticeDetailDTO
      * @return
      */
-    public String addNotice(NoticeDetailDTO noticeDetailDTO) {
-        noticeDetailDTO.setId(UUID.randomUUID().toString());
+    public String saveNotice(NoticeDetailDTO noticeDetailDTO) {
         NoticeEntity noticeEntity = noticeDetailDTO.toNoticeEntity();
 
-        forumRepository.save(noticeEntity);
+        noticeRepository.save(noticeEntity);
         return noticeEntity.getId();
     }
 
     // Read
     public List<NoticeSummaryDTO> searchNoticeByTitle(String title) {
-        List<NoticeEntity> noticeEntities = forumRepository.findAllNoticeEntityByTitle(title);
+        List<NoticeEntity> noticeEntities = noticeRepository.findAllNoticeEntityByTitle(title);
         List<NoticeSummaryDTO> noticeDTOs = new ArrayList<>();
 
         for (NoticeEntity entity : noticeEntities) {
@@ -40,7 +37,7 @@ public class NoticeService {
     }
 
     public NoticeDetailDTO searchNoticeById(String id) {
-        NoticeEntity noticeEntity = forumRepository.findNoticeEntityById(id);
+        NoticeEntity noticeEntity = noticeRepository.findNoticeEntityById(id);
 
         return noticeEntity.toNoticeDetailDTO();
     }
@@ -53,22 +50,22 @@ public class NoticeService {
      * @return
      */
     public boolean deleteNotice(String id) {
-        if (forumRepository.existsById(id)) {
-            forumRepository.deleteById(id);
+        if (noticeRepository.existsById(id)) {
+            noticeRepository.deleteById(id);
             return true;
         } else { return false; }
     }
 
     // Update (Using ID)
     public NoticeDetailDTO updateNotice(String id, NoticeDetailDTO noticeDetailDTO) {
-        Optional<NoticeEntity> optionalEntity = forumRepository.findById(id);
+        Optional<NoticeEntity> optionalEntity = noticeRepository.findById(id);
         // 작성자 id도 판별 할 것?
         if (optionalEntity.isPresent()) {
             NoticeEntity item = optionalEntity.get();
 
             item.setTitle(noticeDetailDTO.getTitle());
             item.setContent(noticeDetailDTO.getContent());
-            forumRepository.save(item);
+            noticeRepository.save(item);
             return item.toNoticeDetailDTO();
         } else { return null; }
     }

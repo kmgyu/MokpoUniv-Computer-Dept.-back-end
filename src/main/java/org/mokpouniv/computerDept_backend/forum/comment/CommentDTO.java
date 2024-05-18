@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Document("comment")
+
 @Getter
 @Setter
 @Builder
@@ -26,4 +26,6 @@ public class CommentDTO {
 
     @Builder.Default
     private LocalDateTime posted_time = LocalDateTime.now();
+
+    private String question_id;
 }
