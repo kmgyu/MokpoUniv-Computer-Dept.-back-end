@@ -25,12 +25,17 @@ public class QuestionController {
         }
     }
 
+    /**
+     * 주의 : Entity는 댓글을 저장하지 않는다. 댓글 리포지토리를 활용해 따로 받아온다.
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponseEntity<QuestionDetailDTO> getDetailQuestion(@PathVariable String id) {
         QuestionDetailDTO questionDetailDTO = questionService.searchQuestionById(id);
 
         return ResponseEntity.ok(questionDetailDTO);
     }
+
 
     @GetMapping("/")
     public ResponseEntity<List<QuestionDetailDTO>> getQuestions() {

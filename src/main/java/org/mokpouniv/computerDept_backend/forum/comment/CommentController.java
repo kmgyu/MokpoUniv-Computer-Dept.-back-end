@@ -29,7 +29,9 @@ public class CommentController {
             @PathVariable String questionId,
             @RequestBody CommentDTO commentDTO
     ) {
-        CommentDTO result = commentService.saveComment(commentDTO, questionId);
+        CommentDTO inputDTO = commentDTO;
+        inputDTO.setQuestion_id(questionId);
+        CommentDTO result = commentService.saveComment(inputDTO, questionId);
         return ResponseEntity.ok(result);
     }
 

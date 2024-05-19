@@ -1,6 +1,8 @@
 package org.mokpouniv.computerDept_backend.forum.qna;
 
 import lombok.RequiredArgsConstructor;
+import org.mokpouniv.computerDept_backend.forum.comment.CommentMapper;
+import org.mokpouniv.computerDept_backend.forum.comment.CommentRepository;
 import org.mokpouniv.computerDept_backend.forum.notice.NoticeRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import java.util.stream.Collectors;
 public class QuestionService {
 
     private final QuestionRepository questionRepository;
+    private final CommentRepository commentRepository;
 
     public List<QuestionDetailDTO> searchQuestionByTitle(String title) {
         return questionRepository.findQuestionEntitiesByTitle(title).stream()
@@ -26,7 +29,17 @@ public class QuestionService {
 //    }
 
     public QuestionDetailDTO searchQuestionById(String id) {
-        return QuestionMapper.toDetailDTO(questionRepository.findQuestionEntityById(id));
+        QuestionEntity questionEntity = questionRepository.findQuestionEntityById(id);
+
+        QuestionDetailDTO questionDetailDTO = QuestionMapper.toDetailDTO(questionEntity);
+
+        questionDetailDTO.setCommentDTOList(
+                commentRepository.findByQuestionId(id).stream()
+                        .map(CommentMapper::toDTO)
+                        .collect(Collectors.toList())
+                );
+
+        return questionDetailDTO;
     }
 
     public String saveQuestion(QuestionDetailDTO questionDetailDTO) {
