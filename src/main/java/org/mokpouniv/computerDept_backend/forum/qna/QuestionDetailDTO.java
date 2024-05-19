@@ -23,9 +23,11 @@ public class QuestionDetailDTO {
 
     private String content; // 게시물 내용
 
-    private int view; // 조회수
+    @Builder.Default
+    private int view = 0; // 조회수
 
-    private LocalDateTime posted_time;
+    @Builder.Default
+    private LocalDateTime posted_time = LocalDateTime.now();
 
     private List<CommentDTO> commentDTOList;
 }
