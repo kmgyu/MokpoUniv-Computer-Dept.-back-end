@@ -30,6 +30,48 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
+
+// AWS SDK
+	implementation platform('software.amazon.awssdk:bom:2.17.53') // Adjusted version
+	implementation 'software.amazon.awssdk:s3'
+
+	implementation 'com.amazonaws:aws-java-sdk-s3:1.12.22' // 버전은 최신으로 확인하세요
+
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE' // Reverted to older version
+
+	compileOnly 'org.projectlombok:lombok'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+	// AWS SDK - 최신 버전을 사용합니다. 구버전('com.amazonaws:aws-java-sdk-s3') 의존성은 제거합니다.
+	implementation platform('software.amazon.awssdk:bom:2.17.53')
+	implementation 'software.amazon.awssdk:s3'
+
+	// 구버전 AWS Java SDK 의존성 제거
+	// implementation 'com.amazonaws:aws-java-sdk-s3:1.12.22' // 이 줄을 삭제하세요
+
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
 	compileOnly 'org.projectlombok:lombok'
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
