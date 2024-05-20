@@ -8,9 +8,9 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends MongoRepository<UserEntity, String> {
-//    findOneWithAuthoritiesByUsername
-//    @Query("{username : ?0}")
-//    UserEntity findOneWithAuthoritiesByUsername(String username);
+
+    @Query("{username : ?0}")
+    Optional<UserEntity> findUserEntityByUsername(String username);
 
     @Query("{username : ?0}")
     Optional<UserEntity> findOneWithAuthoritiesByUsername(String username);

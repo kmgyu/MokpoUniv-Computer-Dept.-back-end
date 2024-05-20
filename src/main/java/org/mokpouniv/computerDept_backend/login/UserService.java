@@ -1,7 +1,6 @@
 package org.mokpouniv.computerDept_backend.login;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +17,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    public Boolean searchDuplicateUsername(String username) {
+        return userRepository.findUserEntityByUsername(username).isEmpty();
+    }
 
     @Transactional
     public UserEntity signup(UserDTO userDto) {
