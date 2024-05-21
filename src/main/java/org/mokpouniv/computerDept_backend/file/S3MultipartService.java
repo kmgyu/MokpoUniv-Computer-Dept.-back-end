@@ -106,16 +106,26 @@ public class S3MultipartService {
         s3Client.abortMultipartUpload(abortMultipartUploadRequest);
     }
 
-    private long getFileSizeFromS3Url(String bucketName, String fileName) {
-        GetObjectMetadataRequest metadataRequest = new GetObjectMetadataRequest(bucketName, fileName);
-        ObjectMetadata objectMetadata = amazonS3Client.getObjectMetadata(metadataRequest);
-        return objectMetadata.getContentLength();
+    // 파일 크기 계산
+    public long getFileSizeFromS3Url(String bucketName, String fileName) {
+        try {
+            GetObjectMetadataRequest metadataRequest = new GetObjectMetadataRequest(bucketName, fileName);
+            ObjectMetadata objectMetadata = amazonS3Client.getObjectMetadata(metadataRequest);
+            return objectMetadata.getContentLength();
+        } catch (Exception e) {
+            // 예외 처리 로직 (예: 파일이 존재하지 않거나 접근 권한이 없는 경우)
+            e.printStackTrace();
+            return -1; // 또는 적절한 기본값 반환
+        }
     }
 
     public void uploadFile(MultipartFile file, String bucketName, String folderName) {
         try {
             String fileName = folderName + "/" + System.currentTimeMillis() + "_" + file.getOriginalFilename();
-            PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, fileName, file.getInputStream(), new ObjectMetadata())
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentLength(file.getSize());
+
+            PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, fileName, file.getInputStream(), metadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead);
 
             amazonS3Client.putObject(putObjectRequest);
