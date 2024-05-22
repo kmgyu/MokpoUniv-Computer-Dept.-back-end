@@ -60,7 +60,6 @@ public class SecurityConfig {
                         .requestMatchers("/question/**").permitAll()
                         .requestMatchers("/question/create").permitAll()
                         .requestMatchers("/comment/**").permitAll()
-                        .requestMatchers("/").permitAll()
                         .anyRequest().authenticated() // 그 외 인증 없이 접근X
                 )
                 .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);// JwtFilter를 addFilterBefore로 등록했던 JwtSecurityConfig class 적용
