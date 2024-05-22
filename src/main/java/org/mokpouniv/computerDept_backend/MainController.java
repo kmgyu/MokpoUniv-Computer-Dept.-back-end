@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MainController {
 
-    @GetMapping("/oop")
+    @GetMapping("/")
     @ResponseBody
     public String index() {
-        return "hi there?";
+        return "mainpage.html";
     }
 }
