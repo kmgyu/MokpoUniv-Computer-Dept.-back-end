@@ -1,10 +1,8 @@
 package org.mokpouniv.computerDept_backend.file.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -18,11 +16,4 @@ public class S3UploadResultDto {
 
     // 원본 파일 사이즈 (바이트)
     private long size;
-
-    @Builder
-    public S3UploadResultDto(String url, String name, long size) {
-        this.url = url;
-        this.name = name;
-        this.size = size;
-    }
 }
