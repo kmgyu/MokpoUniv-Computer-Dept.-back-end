@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
+import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedUploadPartRequest;
 import software.amazon.awssdk.services.s3.presigner.model.UploadPartPresignRequest;
 
@@ -132,5 +134,20 @@ public class S3MultipartService {
         } catch (Exception e) {
             throw new RuntimeException("Failed to upload file", e);
         }
+
+    }
+    public String generateDownloadUrl(String fileName, String bucketName, String folderName) {
+        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                .bucket(bucketName)
+                .key(folderName + "/" + fileName)
+                .build();
+
+        GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
+                .getObjectRequest(getObjectRequest)
+                .signatureDuration(Duration.ofMinutes(10))
+                .build();
+
+        PresignedGetObjectRequest presignedGetObjectRequest = s3Presigner.presignGetObject(getObjectPresignRequest);
+        return presignedGetObjectRequest.url().toString();
     }
 }

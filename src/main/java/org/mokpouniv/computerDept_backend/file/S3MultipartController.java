@@ -70,4 +70,14 @@ public class S3MultipartController {
         s3MultipartService.uploadFile(file, videoBucket, S3Config.videoFolder);
         return ResponseEntity.ok("File uploaded successfully: " + fileName);
     }
+    /**
+     * 파일 다운로드를 위한 서명된 URL 발급 요청
+     * @param fileName
+     * @return
+     */
+    @GetMapping("/download")
+    public ResponseEntity<String> generateDownloadUrl(@RequestParam("fileName") String fileName) {
+        String downloadUrl = s3MultipartService.generateDownloadUrl(fileName, videoBucket, S3Config.videoFolder);
+        return ResponseEntity.ok(downloadUrl);
+    }
 }
