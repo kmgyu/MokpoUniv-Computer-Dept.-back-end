@@ -1,9 +1,11 @@
 package org.mokpouniv.computerDept_backend.file.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
 public class S3UploadDto {
@@ -12,9 +14,4 @@ public class S3UploadDto {
     private String uploadId;
     // 서버에서 생성한 파일 이름
     private String fileName;
-
-    public S3UploadDto(String uploadId, String fileName) {
-        this.uploadId = uploadId;
-        this.fileName = fileName;
-    }
 }
