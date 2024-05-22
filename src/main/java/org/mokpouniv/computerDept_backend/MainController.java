@@ -12,4 +12,19 @@ public class MainController {
     public String index() {
         return "mainpage.html";
     }
+
+    @GetMapping("/curriculum1")
+    public String curr1() { return "curriculum1.html"; }
+
+    @GetMapping("/curriculum2")
+    public String curr2() { return "curriculum2.html"; }
+
+    @GetMapping("/curriculum3")
+    public String curr3() { return "curriculum3.html"; }
+
+    @GetMapping("/curriculum4")
+    public String curr4() { return "curriculum4.html"; }
+
+    @GetMapping("/sitemap")
+    public String sitemap() { return "sitemap.html"; }
 }
