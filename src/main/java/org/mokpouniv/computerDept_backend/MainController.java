@@ -27,4 +27,10 @@ public class MainController {
 
     @GetMapping("/sitemap")
     public String sitemap() { return "sitemap.html"; }
+
+    @GetMapping("/signup")
+    public String signup() { return "signup.html"; }
+
+    @GetMapping("/login")
+    public String login() { return "login.html"; }
 }
