@@ -4,12 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./sitemap.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script type="text/javascript">   
-        $(document).ready( function() {
-        $("#nav").load("/nav.html");
-        $("#footers").load("/footer.html");
-        $("#temp").load("/temp.html"); 
-        });
+    <script type="text/javascript">
         $(function(){
             $("html, body").animate({ scrollTop: 0 }, "fast"); 
         });
@@ -66,7 +61,7 @@
 <body class="sub _responsiveObj sub type_1 page16810 college_templet_04 Desktop _msMain eQ05" cz-shortcut-listen="true">
 
 	<!--헤더-->
-    <div id="nav"></div>
+    <th:block th:replace="~{nav :: navFragment}"></th:block>
 	<!--서브비주얼-->
     <div class="wrap_sub_visual">
         <a href="/cs/16806/subview.do" class="prev" target="_self">커뮤니티</a>
@@ -348,8 +343,11 @@
         <!--컨텐츠-->
     </div>
     </div>
-    <div id="footers"></div>
-    <div id="temp"></div>
+    <th:block th:replace="~{footer :: footerFragment}"></th:block>
+    <th:block th:replace="~{temp :: tempFragment}"></th:block>
+    <!--바디-->
+    <div class="goTop"><a href="#">맨위로</a></div>
+    <!--고탑-->
     
 </body>
 </html>

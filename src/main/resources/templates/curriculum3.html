@@ -2,14 +2,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./curriculum.css" />
+    <link rel="stylesheet" th:href="@{/curriculum.css}" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script type="text/javascript">   
-        $(document).ready( function() {
-        $("#nav").load("/nav.html");
-        $("#footers").load("/footer.html");
-        $("#temp").load("/temp.html"); 
-        });
+    <script type="text/javascript">
         $(function(){
             $("html, body").animate({ scrollTop: 0 }, "fast"); 
         });
@@ -65,8 +60,8 @@
     <title>Document</title>
 </head>
 <body class="sub _responsiveObj sub type_1 page16802 college_templet_04 Desktop _msMain eQ03" cz-shortcut-listen="true">
-	<!--서브비주얼-->
-    <div id="nav"></div>
+    <!--헤더-->
+    <th:block th:replace="~{nav :: navFragment}"></th:block>
 	<div class="wrap_sub_visual">
         <a href="/cs/16799/subview.do" class="prev" target="_self">전공소개</a>
         <a href="/cs/16806/subview.do" class="next" target="_self">커뮤니티</a>
@@ -175,8 +170,8 @@
 		<!--컨텐츠-->
         </div>
     </div>
-    <div id="footers"></div>
-    <div id="temp"></div>
+    <th:block th:replace="~{footer :: footerFragment}"></th:block>
+    <th:block th:replace="~{temp :: tempFragment}"></th:block>
 	<!--바디-->
 	<div class="goTop"><a href="#">맨위로</a></div>
 	<!--고탑-->
