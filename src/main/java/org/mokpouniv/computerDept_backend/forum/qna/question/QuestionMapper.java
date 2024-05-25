@@ -6,6 +6,11 @@ import org.mokpouniv.computerDept_backend.forum.qna.comment.CommentMapper;
 import java.util.stream.Collectors;
 
 public class QuestionMapper {
+    /**
+     * question에 대한 DTO를 Entity로 변환한다.
+     * @param questionEntity
+     * @return
+     */
     public static QuestionDetailDTO toDetailDTO (QuestionEntity questionEntity) {
         return QuestionDetailDTO.builder()
                 .id(questionEntity.getId())
@@ -22,6 +27,11 @@ public class QuestionMapper {
                 .build();
     }
 
+    /**
+     * question에 대한 Entity를 DTO로 변환한다.
+     * @param questionDetailDTO
+     * @return
+     */
     public static QuestionEntity toEntity (QuestionDetailDTO questionDetailDTO) {
         return QuestionEntity.builder()
                 .id(questionDetailDTO.getId())

@@ -13,6 +13,12 @@ import java.net.URI;
 public class AnswerController {
     private final AnswerService answerService;
 
+    /**
+     * Answer를 작성함.
+     * @param questionId
+     * @param answerDTO
+     * @return
+     */
     @PostMapping("/{questionId}")
     public ResponseEntity<AnswerDTO> createAnswer (
             @PathVariable String questionId,

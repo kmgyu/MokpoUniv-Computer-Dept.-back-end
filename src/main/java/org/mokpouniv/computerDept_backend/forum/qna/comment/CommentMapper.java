@@ -1,6 +1,11 @@
 package org.mokpouniv.computerDept_backend.forum.qna.comment;
 
 public class CommentMapper {
+    /**
+     * Comment에 대해, DTO를 Entity로 변환
+     * @param commentDTO
+     * @return
+     */
     public static CommentEntity toEntity(CommentDTO commentDTO) {
         return CommentEntity.builder()
                 .id(commentDTO.getId())
@@ -10,6 +15,11 @@ public class CommentMapper {
                 .build();
     }
 
+    /**
+     * Comment에 대해, Entity를 DTO로 변환
+     * @param commentEntity
+     * @return
+     */
     public static CommentDTO toDTO(CommentEntity commentEntity) {
         return CommentDTO.builder()
                 .id(commentEntity.getId())

@@ -15,6 +15,11 @@ import java.util.Map;
 public class UserController {
     private final UserService userService;
 
+    /**
+     * 회원가입 시 중복검사
+     * @param username
+     * @return
+     */
     @PostMapping("/duplicate")
     public ResponseEntity<Map<String, Object>> duplicationVerify(
             @RequestBody String username
@@ -32,6 +37,11 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * 회원가입
+     * @param userDTO
+     * @return
+     */
     @PostMapping("/signup")
     public ResponseEntity<UserEntity> signup(
             @Valid @RequestBody UserDTO userDTO
@@ -39,12 +49,21 @@ public class UserController {
         return ResponseEntity.ok(userService.signup(userDTO));
     }
 
+    /**
+     * 정상적인 회원 처리에 대한 user entity 반환 (테스트용)
+     * @return
+     */
     @GetMapping("/user")
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<UserEntity> getMyUserInfo() {
         return ResponseEntity.ok(userService.getMyUserWithAuthorities().get());
     }
 
+    /**
+     * admin일 경우에 대한 테스트용
+     * @param username
+     * @return
+     */
     @GetMapping("/user/{username}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<UserEntity> getUserInfo(@PathVariable String username) {

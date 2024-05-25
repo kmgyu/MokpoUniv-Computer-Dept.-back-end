@@ -13,7 +13,7 @@ public class NoticeService {
     private final NoticeRepository noticeRepository;
 
     /**
-     * id를 uuid를 이용해 난수 문자열 생성
+     * id를 uuid를 이용해 난수 문자열 생성하여 저장.
      * @param noticeDetailDTO
      * @return
      */
@@ -24,7 +24,11 @@ public class NoticeService {
         return noticeEntity.getId();
     }
 
-    // Read
+    /**
+     * 제목을 포함하는 작성글 모두 반환
+     * @param title
+     * @return
+     */
     public List<NoticeSummaryDTO> searchNoticeByTitle(String title) {
         List<NoticeEntity> noticeEntities = noticeRepository.findAllNoticeEntityByTitle(title);
         List<NoticeSummaryDTO> noticeDTOs = new ArrayList<>();

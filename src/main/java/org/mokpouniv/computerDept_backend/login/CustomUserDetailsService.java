@@ -17,9 +17,13 @@ import java.util.stream.Collectors;
 public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
+    /**
+     * 로그인시에 DB에서 유저정보와 권한정보를 가져와서 해당 정보를 기반으로 userdetails.User 객체를 생성해 리턴
+     * @param username
+     * @return
+     */
     @Override
     @TransactionalEventListener
-    // 로그인시에 DB에서 유저정보와 권한정보를 가져와서 해당 정보를 기반으로 userdetails.User 객체를 생성해 리턴
     public UserDetails loadUserByUsername(final String username) {
 
         return userRepository.findOneWithAuthoritiesByUsername(username)
@@ -27,6 +31,12 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(username + " -> 데이터베이스에서 찾을 수 없습니다."));
     }
 
+    /**
+     * User 생성. 만약 userEntity가 활성화되어있지 않으면 runtimeException 발생
+     * @param username
+     * @param user
+     * @return
+     */
     private org.springframework.security.core.userdetails.User createUser(String username, UserEntity user) {
         if (!user.isActivated()) {
             throw new RuntimeException(username + " -> 활성화되어 있지 않습니다.");

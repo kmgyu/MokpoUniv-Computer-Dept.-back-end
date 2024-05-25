@@ -14,7 +14,11 @@ public class NoticeController {
 
     private final NoticeService noticeService;
 
-    // 게시글을 만듬 json형태로 보여줌 ( id, title, author, content )
+    /**
+     * 게시글을 만듬 json형태로 보여줌 ( id, title, author, content )
+     * @param noticeDetailDTO
+     * @return
+     */
     @PostMapping("/create")
     public ResponseEntity<NoticeDetailDTO> createNotice(@RequestBody NoticeDetailDTO noticeDetailDTO) {
         String noticeId = noticeService.saveNotice(noticeDetailDTO);
@@ -25,7 +29,12 @@ public class NoticeController {
         else { return ResponseEntity.badRequest().build(); }
     }
 
-    // 제목을 기준으로 관련 게시글 전부 json형태로 보여줌
+
+    /**
+     * 제목을 기준으로 관련 게시글 전부 json형태로 보여줌
+     * @param title
+     * @return
+     */
     @GetMapping("/")
     public ResponseEntity<List<NoticeSummaryDTO>> searchNotices(@RequestParam("title") String title) {
         List<NoticeSummaryDTO> results = noticeService.searchNoticeByTitle(title);

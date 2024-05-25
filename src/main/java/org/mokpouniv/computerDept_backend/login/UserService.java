@@ -17,10 +17,20 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * username 중복 검사
+     * @param username
+     * @return
+     */
     public Boolean searchDuplicateUsername(String username) {
         return userRepository.findUserEntityByUsername(username).isEmpty();
     }
 
+    /**
+     * 회원가입
+     * @param userDto
+     * @return
+     */
     @Transactional
     public UserEntity signup(UserDTO userDto) {
         if (userRepository.findOneWithAuthoritiesByUsername(userDto.getUsername()).orElse(null) != null) {

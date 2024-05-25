@@ -5,6 +5,11 @@ import org.mokpouniv.computerDept_backend.forum.qna.comment.CommentMapper;
 import java.util.stream.Collectors;
 
 public class AnswerMapper {
+    /**
+     * AnswerDTO를 AnswerEntity로 변환함.
+     * @param answerDTO
+     * @return
+     */
     public static AnswerEntity toEntity(AnswerDTO answerDTO) {
         return AnswerEntity.builder()
                 .id(answerDTO.getId())
@@ -16,6 +21,11 @@ public class AnswerMapper {
                 .build();
     }
 
+    /**
+     * AnswerEntity를 AnswerDTO로 변환함.
+     * @param answerEntity
+     * @return
+     */
     public static AnswerDTO toDTO(AnswerEntity answerEntity) {
         return AnswerDTO.builder()
                 .id(answerEntity.getId())

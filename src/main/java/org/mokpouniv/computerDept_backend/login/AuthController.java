@@ -23,6 +23,12 @@ public class AuthController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
+    /**
+     * 토큰 발급 Controller. 로그인 정보 입력시 jwt token을 생성함.
+     * bearer 방식으로 인증해야한다.
+     * @param loginDTO
+     * @return
+     */
     @PostMapping("/authenticate")
     public ResponseEntity<TokenDTO> authorize(@Valid @RequestBody LoginDTO loginDTO) {
         UsernamePasswordAuthenticationToken authenticationToken =

@@ -16,6 +16,12 @@ public class CommentService {
 
     private final QuestionRepository questionRepository;
 
+    /**
+     * question에 대한 comment를 저장
+     * @param commentDTO
+     * @param questionId
+     * @return String questionId
+     */
     public String saveQuestionComment(CommentDTO commentDTO, String questionId) {
 //        try catch 문 넣을 것
         QuestionEntity questionEntity = questionRepository.findQuestionEntityById(questionId);
@@ -26,6 +32,13 @@ public class CommentService {
         return questionId;
     }
 
+    /**
+     * question의 answer에 대한 comment를 저장
+     * @param commentDTO
+     * @param questionId
+     * @param answerId
+     * @return String resultMessage
+     */
     public String saveAnswerComment(CommentDTO commentDTO, String questionId, String answerId) {
         QuestionEntity questionEntity = questionRepository.findQuestionEntityById(questionId);
         Optional<AnswerEntity> answerEntityList = questionEntity.getAnswerEntityList().stream()

@@ -13,6 +13,11 @@ import java.util.List;
 public class QuestionController {
     private final QuestionService questionService;
 
+    /**
+     * question을 생성한다.
+     * @param questionDetailDTO
+     * @return
+     */
     @RequestMapping("/create")
     public ResponseEntity<QuestionDetailDTO> createQuestion(
             @RequestBody QuestionDetailDTO questionDetailDTO) {
@@ -27,6 +32,7 @@ public class QuestionController {
 
     /**
      * 주의 : Entity는 댓글을 저장하지 않는다. 댓글 리포지토리를 활용해 따로 받아온다.
+     * question의 상세 내용을 얻는다.
      * @return
      */
     @GetMapping("/{id}")
@@ -36,7 +42,10 @@ public class QuestionController {
         return ResponseEntity.ok(questionDetailDTO);
     }
 
-
+    /**
+     * question의 목록을 받는다.
+     * @return
+     */
     @GetMapping("/")
     public ResponseEntity<List<QuestionDetailDTO>> getQuestions() {
         List<QuestionDetailDTO> questionDetailDTOS = questionService.searchQuestionByTitle("");
