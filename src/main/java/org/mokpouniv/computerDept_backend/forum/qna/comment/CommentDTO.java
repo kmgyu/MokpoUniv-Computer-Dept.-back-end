@@ -1,4 +1,4 @@
-package org.mokpouniv.computerDept_backend.forum.comment;
+package org.mokpouniv.computerDept_backend.forum.qna.comment;
 
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,10 +13,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommentDTO {
-
-    /**
-     * randomUUID로 자동 생성됨.
-     */
     @Builder.Default
     private String id = UUID.randomUUID().toString();
 
@@ -26,6 +22,4 @@ public class CommentDTO {
 
     @Builder.Default
     private LocalDateTime posted_time = LocalDateTime.now();
-
-    private String question_id;
 }

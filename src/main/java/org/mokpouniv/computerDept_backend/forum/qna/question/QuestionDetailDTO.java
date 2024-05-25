@@ -1,9 +1,11 @@
-package org.mokpouniv.computerDept_backend.forum.qna;
+package org.mokpouniv.computerDept_backend.forum.qna.question;
 
 import lombok.*;
-import org.mokpouniv.computerDept_backend.forum.comment.CommentDTO;
+import org.mokpouniv.computerDept_backend.forum.qna.answer.AnswerDTO;
+import org.mokpouniv.computerDept_backend.forum.qna.comment.CommentDTO;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,5 +31,12 @@ public class QuestionDetailDTO {
     @Builder.Default
     private LocalDateTime posted_time = LocalDateTime.now();
 
-    private List<CommentDTO> commentDTOList;
+    @Builder.Default
+    private boolean isAnswer = false;
+
+    @Builder.Default
+    private List<AnswerDTO> answerDTOList = new ArrayList<>();
+
+    @Builder.Default
+    private List<CommentDTO> commentDTOList = new ArrayList<>();
 }

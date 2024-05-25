@@ -1,8 +1,8 @@
-package org.mokpouniv.computerDept_backend.forum.qna;
+package org.mokpouniv.computerDept_backend.forum.qna.question;
 
 import lombok.*;
-import org.mokpouniv.computerDept_backend.forum.comment.CommentDTO;
-import org.mokpouniv.computerDept_backend.forum.comment.CommentEntity;
+import org.mokpouniv.computerDept_backend.forum.qna.answer.AnswerEntity;
+import org.mokpouniv.computerDept_backend.forum.qna.comment.CommentEntity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -28,5 +28,11 @@ public class QuestionEntity {
     private int view; // 조회수
 
     private LocalDateTime posted_time;
+
+    private boolean isAnswer;
+
+    private List<AnswerEntity> answerEntityList;
+
+    private List<CommentEntity> commentEntityList;
 
 }

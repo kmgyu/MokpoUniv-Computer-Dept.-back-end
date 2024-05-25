@@ -1,4 +1,4 @@
-package org.mokpouniv.computerDept_backend.forum.qna;
+package org.mokpouniv.computerDept_backend.forum.qna.question;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
