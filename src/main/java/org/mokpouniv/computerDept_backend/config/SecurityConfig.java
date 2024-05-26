@@ -20,6 +20,7 @@ public class SecurityConfig {
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final CORSConfig corsConfig;
 
     // PasswordEncoder는 BCryptPasswordEncoder를 사용
     @Bean
@@ -63,6 +64,7 @@ public class SecurityConfig {
                                 .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated() // 그 외 인증 없이 접근X
                 )
+                .addFilter(corsConfig.corsFilter())
                 .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);// JwtFilter를 addFilterBefore로 등록했던 JwtSecurityConfig class 적용
 
 
