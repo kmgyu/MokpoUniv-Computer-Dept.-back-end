@@ -52,15 +52,15 @@ public class SecurityConfig {
 
                 // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정하겠다.
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login/authenticate").permitAll() // 로그인 api
-                        .requestMatchers("/login/signup").permitAll() // 회원가입 api
-//                        .requestMatchers(PathRequest.toH2Console()).permitAll()// h2-console, favicon.ico 요청 인증 무시
-                        .requestMatchers("/favicon.ico").permitAll()
-                        .requestMatchers("/notice/**").permitAll()
-                        .requestMatchers("/notice/create").hasAuthority("ROLE_USER") // 유저 권한 존재 시
-                        .requestMatchers("/question/**").permitAll()
-                        .requestMatchers("/question/create").permitAll()
-                        .requestMatchers("/comment/**").permitAll()
+//                        .requestMatchers("/login/authenticate").permitAll() // 로그인 api
+//                        .requestMatchers("/login/signup").permitAll() // 회원가입 api
+////                        .requestMatchers(PathRequest.toH2Console()).permitAll()// h2-console, favicon.ico 요청 인증 무시
+//                        .requestMatchers("/favicon.ico").permitAll()
+//                        .requestMatchers("/notice/**").permitAll()
+//                        .requestMatchers("/notice/create").hasAuthority("ROLE_USER") // 유저 권한 존재 시
+//                        .requestMatchers("/question/**").permitAll()
+//                        .requestMatchers("/question/create").permitAll()
+//                        .requestMatchers("/comment/**").permitAll()
                                 .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated() // 그 외 인증 없이 접근X
                 )
