@@ -38,7 +38,7 @@ jobs:
       # application-secrets.properties 파일을 프로젝트 디렉토리로 이동시킵니다.
       - name: Move secrets file to project directory
         run: |
-          mv APPLICATION_SECRET_CONTENT $GITHUB_WORKSPACE/src/main/resources/
+          mv application-secrets.properties $GITHUB_WORKSPACE/src/main/resources/
 
       # gradle caching - 빌드 시간 향상
       - name: Gradle Caching
