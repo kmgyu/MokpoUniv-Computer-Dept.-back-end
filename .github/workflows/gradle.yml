@@ -33,7 +33,7 @@ jobs:
         env:
           APPLICATION_SECRET_CONTENT: ${{ secrets.APPLICATION_SECRET_CONTENT }}
         run: |
-          echo "${APPLICATION_SECRET_CONTENT}" > application-secret.properties       
+          echo "${APPLICATION_SECRET_CONTENT}" > application-secrets.properties       
 
       # gradle caching - 빌드 시간 향상
       - name: Gradle Caching
