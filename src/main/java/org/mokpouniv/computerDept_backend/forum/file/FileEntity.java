@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class FileDTO {
+public class FileEntity {
     private int number;
 
     private String fileUrl;

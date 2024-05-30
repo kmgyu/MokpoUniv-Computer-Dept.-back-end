@@ -1,4 +1,4 @@
-package org.mokpouniv.computerDept_backend.file.dto;
+package org.mokpouniv.computerDept_backend.fileupload.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-public class S3UploadInitiateDto {
-    // 업로드할 파일의 originFileName
+public class S3UploadDto {
+
+    // S3 UploadId
+    private String uploadId;
+    // 서버에서 생성한 파일 이름
     private String fileName;
 }

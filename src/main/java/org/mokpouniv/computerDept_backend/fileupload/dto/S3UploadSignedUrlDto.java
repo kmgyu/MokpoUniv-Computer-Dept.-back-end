@@ -1,4 +1,4 @@
-package org.mokpouniv.computerDept_backend.file.dto;
+package org.mokpouniv.computerDept_backend.fileupload.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

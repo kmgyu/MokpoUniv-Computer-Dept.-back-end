@@ -18,7 +18,7 @@ public class QuestionController {
      * @param questionDetailDTO
      * @return
      */
-    @RequestMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<QuestionDetailDTO> createQuestion(
             @RequestBody QuestionDetailDTO questionDetailDTO) {
         String questionId = questionService.saveQuestion(questionDetailDTO);

@@ -1,9 +1,9 @@
-package org.mokpouniv.computerDept_backend.file;
+package org.mokpouniv.computerDept_backend.fileupload;
 
 import lombok.RequiredArgsConstructor;
 import org.mokpouniv.computerDept_backend.config.S3Config;
 import org.springframework.beans.factory.annotation.Value;
-import org.mokpouniv.computerDept_backend.file.dto.*;
+import org.mokpouniv.computerDept_backend.fileupload.dto.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

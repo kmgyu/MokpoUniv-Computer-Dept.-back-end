@@ -1,6 +1,6 @@
-package org.mokpouniv.computerDept_backend.file;
+package org.mokpouniv.computerDept_backend.fileupload;
 
-import org.mokpouniv.computerDept_backend.file.dto.*;
+import org.mokpouniv.computerDept_backend.fileupload.dto.*;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GetObjectMetadataRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
