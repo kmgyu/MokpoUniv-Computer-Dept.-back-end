@@ -1,6 +1,8 @@
 package org.mokpouniv.computerDept_backend.forum.photo;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.web.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +21,18 @@ public class PhotoController {
         return ResponseEntity.created(URI.create("/photo/" + result.getId())).build();
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<PhotoSummaryDTO>> getPhotos() {
-        List<PhotoSummaryDTO> results = photoService.getAll();
-        return ResponseEntity.ok(results);
+    @GetMapping("/{page}")
+    public ResponseEntity<PagedModel<PhotoSummaryDTO>> getPhotos(@PathVariable int page) {
+        if (page < 0) {
+            return ResponseEntity.badRequest().build();
+        }
+        Page<PhotoSummaryDTO> results = photoService.getAll(page);
+        if (results.getNumberOfElements() == 0) {
+            return ResponseEntity.noContent().build();
+        }
+//      for stable Json Serialize, we need to use PagedModel.
+        PagedModel<PhotoSummaryDTO> paged = new PagedModel<>(results);
+        return ResponseEntity.ok(paged);
     }
 
 }

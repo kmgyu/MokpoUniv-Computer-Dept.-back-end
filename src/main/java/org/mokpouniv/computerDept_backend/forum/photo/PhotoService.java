@@ -1,8 +1,13 @@
 package org.mokpouniv.computerDept_backend.forum.photo;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,9 +20,13 @@ public class PhotoService {
      * testing method
      * @return
      */
-    public List<PhotoSummaryDTO> getAll() {
-        return photoRepository.findAll().stream()
-                .map(PhotoMapper :: toDTO).collect(Collectors.toList());
+    public Page<PhotoSummaryDTO> getAll(int page) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("posted_time"));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+
+        return photoRepository.findAll(pageable)
+                .map(PhotoMapper :: toDTO);
     }
 
     public PhotoSummaryDTO createPhoto(PhotoSummaryDTO photoSummaryDTO) {
