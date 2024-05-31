@@ -8,7 +8,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/photo")
+@RequestMapping("/photo-gallery")
 @RequiredArgsConstructor
 public class PhotoController {
     private final PhotoService photoService;
