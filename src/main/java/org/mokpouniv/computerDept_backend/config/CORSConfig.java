@@ -22,7 +22,7 @@ public class CORSConfig {
 //        source.registerCorsConfiguration("/**",config);
 
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(List.of("localhost:8080"));
+        config.setAllowedOrigins(List.of("http://localhost:8080", "http://localhost:5500"));
         config.setAllowedMethods(List.of("POST", "OPTIONS", "GET", "DELETE", "PUT"));
         config.setAllowedHeaders(List.of("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
         source.registerCorsConfiguration("/**", config);
