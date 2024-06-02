@@ -22,7 +22,7 @@ public class CORSConfig {
 //        source.registerCorsConfiguration("/**",config);
 
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
+        config.addAllowedOriginPattern("*");
         config.setAllowedMethods(List.of("POST", "OPTIONS", "GET", "DELETE", "PUT"));
         config.setAllowedHeaders(List.of("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
         source.registerCorsConfiguration("/**", config);
