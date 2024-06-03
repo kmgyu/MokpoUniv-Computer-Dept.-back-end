@@ -17,9 +17,7 @@ public interface NoticeRepository extends MongoRepository<NoticeEntity, String> 
      * @return
      */
     @Query(value = "{author:'?0'}")
-    Page<NoticeEntity> findAllNoticeEntityByAuthor(String author);
-
-    Page<NoticeEntity> findAllbyPage(Pageable pageable);
+    Page<NoticeEntity> findAllNoticeEntityByAuthor(Pageable pageable, String author);
 
     /**
      * 작성글의 id를 기준으로 NoticeEntity 검색. id는 식별자이므로 하나만 반환함.
@@ -35,6 +33,6 @@ public interface NoticeRepository extends MongoRepository<NoticeEntity, String> 
      * @return
      */
     @Query(value = "{ 'title': { $regex: ?0, $options: 'i' } }")
-    Page<NoticeEntity> findAllNoticeEntityByTitle(String title); // 여러 결과를 반환
+    Page<NoticeEntity> findAllNoticeEntityByTitle(Pageable pageable, String title); // 여러 결과를 반환
 
 }

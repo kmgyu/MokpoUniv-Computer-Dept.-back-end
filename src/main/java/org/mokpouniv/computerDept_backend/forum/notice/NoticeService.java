@@ -40,7 +40,7 @@ public class NoticeService {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
 //        return photoRepository.findAll(pageable)
 //                .map(PhotoMapper :: toDTO);
-        return noticeRepository.findAllbyPage(Pageable.ofSize(10)).map(NoticeMapper :: toSummaryDTO);
+        return noticeRepository.findAll(pageable).map(NoticeMapper :: toSummaryDTO);
     }
 
     /**
@@ -49,13 +49,20 @@ public class NoticeService {
      * @return
      */
     public Page<NoticeSummaryDTO> findNoticeByTitle(int page, String title) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("posted_time"));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
 
-        return noticeRepository.findAllNoticeEntityByTitle(title)
+        return noticeRepository.findAllNoticeEntityByTitle(pageable, title)
                 .map(NoticeMapper :: toSummaryDTO);
     }
 
     public Page<NoticeSummaryDTO> findNoticeByAuthor(int page, String author) {
-        return noticeRepository.findAllNoticeEntityByAuthor(author)
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("posted_time"));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+
+        return noticeRepository.findAllNoticeEntityByAuthor(pageable, author)
                 .map(NoticeMapper :: toSummaryDTO);
     }
 

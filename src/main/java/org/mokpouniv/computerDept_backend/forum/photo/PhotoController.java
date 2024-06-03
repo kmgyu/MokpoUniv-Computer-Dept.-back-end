@@ -21,10 +21,8 @@ public class PhotoController {
         return ResponseEntity.created(URI.create("/photo/" + result.getId())).build();
     }
 
-    @GetMapping("/{page}")
-    public ResponseEntity<PagedModel<PhotoSummaryDTO>> searchPhotos(@RequestParam int page
-
-    ) {
+    @GetMapping("/")
+    public ResponseEntity<PagedModel<PhotoSummaryDTO>> searchPhotos(@RequestParam int page) {
         if (page < 0) {
             return ResponseEntity.badRequest().build();
         }
