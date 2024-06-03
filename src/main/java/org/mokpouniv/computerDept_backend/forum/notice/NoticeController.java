@@ -1,10 +1,13 @@
 package org.mokpouniv.computerDept_backend.forum.notice;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.web.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -36,13 +39,25 @@ public class NoticeController {
      * @return
      */
     @GetMapping("/")
-    public ResponseEntity<List<NoticeSummaryDTO>> searchNotices(@RequestParam("title") String title) {
-        List<NoticeSummaryDTO> results = noticeService.searchNoticeByTitle(title);
-        if (results.isEmpty()) {
-            return ResponseEntity.noContent().build();
+    public ResponseEntity<PagedModel<NoticeSummaryDTO>> searchNotices(@RequestParam(value = "page") int page,
+                                                                      @RequestParam(value = "title", required = false) String title,
+                                                                      @RequestParam(value = "author", required = false) String author) {
+        Page<NoticeSummaryDTO> results = null;
+        if (title != null && !title.isEmpty()) {
+            results = noticeService.findNoticeByTitle(page, title);
+        } else if (author != null && !author.isEmpty()) {
+            results = noticeService.findNoticeByAuthor(page, author);
+        } else if (author == null && title == null) {
+            results = noticeService.findAllNotice(page);
         } else {
-            return ResponseEntity.ok(results);
+            return ResponseEntity.badRequest().build();
         }
+
+        if (results.getNumberOfElements() == 0) {
+            return ResponseEntity.noContent().build();
+        }
+        PagedModel<NoticeSummaryDTO> paged = new PagedModel<>(results);
+        return ResponseEntity.ok(paged);
     }
 
     /**
@@ -89,7 +104,7 @@ public class NoticeController {
      */
     @GetMapping("/detail/{id}")
     public NoticeDetailDTO getDetailNotice(@PathVariable String id) {
-        return noticeService.searchNoticeById(id);
+        return noticeService.findNoticeById(id);
     }
     // 모든 게시글의 제목만 보여줌
 //    @GetMapping("/get-names")

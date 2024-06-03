@@ -36,29 +36,6 @@ public class NoticeEntity {
      */
     private List<FileDTO> fileDTOList;
 
-    public NoticeDetailDTO toNoticeDetailDTO() {
-        return NoticeDetailDTO.
-            builder()
-                .id(id)
-                .title(title)
-                .author(author)
-                .content(content)
-                .posted_time(posted_time)
-                .view(view)
-                .fileDTOList(fileDTOList)
-                .build();
-    }
 
-    public NoticeSummaryDTO toNoticeSummaryDTO() {
-        return NoticeSummaryDTO
-                .builder()
-                .id(id)
-                .title(title)
-                .posted_time(posted_time)
-                .author(author)
-                .view(view)
-                .file(fileDTOList != null)
-                .build();
-    }
 
 }

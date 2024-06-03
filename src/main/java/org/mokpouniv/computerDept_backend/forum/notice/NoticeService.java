@@ -1,9 +1,14 @@
 package org.mokpouniv.computerDept_backend.forum.notice;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -18,10 +23,24 @@ public class NoticeService {
      * @return
      */
     public String saveNotice(NoticeDetailDTO noticeDetailDTO) {
-        NoticeEntity noticeEntity = noticeDetailDTO.toNoticeEntity();
+        NoticeEntity noticeEntity = NoticeMapper.toEntity(noticeDetailDTO);
 
         noticeRepository.save(noticeEntity);
         return noticeEntity.getId();
+    }
+
+    /**
+     * 될라나? 이상한데
+     * @param page
+     * @return
+     */
+    public Page<NoticeSummaryDTO> findAllNotice(int page) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("posted_time"));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+//        return photoRepository.findAll(pageable)
+//                .map(PhotoMapper :: toDTO);
+        return noticeRepository.findAllbyPage(Pageable.ofSize(10)).map(NoticeMapper :: toSummaryDTO);
     }
 
     /**
@@ -29,21 +48,21 @@ public class NoticeService {
      * @param title
      * @return
      */
-    public List<NoticeSummaryDTO> searchNoticeByTitle(String title) {
-        List<NoticeEntity> noticeEntities = noticeRepository.findAllNoticeEntityByTitle(title);
-        List<NoticeSummaryDTO> noticeDTOs = new ArrayList<>();
+    public Page<NoticeSummaryDTO> findNoticeByTitle(int page, String title) {
 
-        for (NoticeEntity entity : noticeEntities) {
-            noticeDTOs.add(entity.toNoticeSummaryDTO());
-        }
-
-        return noticeDTOs;
+        return noticeRepository.findAllNoticeEntityByTitle(title)
+                .map(NoticeMapper :: toSummaryDTO);
     }
 
-    public NoticeDetailDTO searchNoticeById(String id) {
+    public Page<NoticeSummaryDTO> findNoticeByAuthor(int page, String author) {
+        return noticeRepository.findAllNoticeEntityByAuthor(author)
+                .map(NoticeMapper :: toSummaryDTO);
+    }
+
+    public NoticeDetailDTO findNoticeById(String id) {
         NoticeEntity noticeEntity = noticeRepository.findNoticeEntityById(id);
 
-        return noticeEntity.toNoticeDetailDTO();
+        return NoticeMapper.toDetailDTO(noticeEntity);
     }
 
     // Delete (Using ID)
@@ -70,7 +89,7 @@ public class NoticeService {
             item.setTitle(noticeDetailDTO.getTitle());
             item.setContent(noticeDetailDTO.getContent());
             noticeRepository.save(item);
-            return item.toNoticeDetailDTO();
+            return NoticeMapper.toDetailDTO(item);
         } else { return null; }
     }
 

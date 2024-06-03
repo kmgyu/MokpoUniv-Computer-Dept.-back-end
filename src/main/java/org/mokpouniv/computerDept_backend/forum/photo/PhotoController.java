@@ -22,7 +22,9 @@ public class PhotoController {
     }
 
     @GetMapping("/{page}")
-    public ResponseEntity<PagedModel<PhotoSummaryDTO>> getPhotos(@PathVariable int page) {
+    public ResponseEntity<PagedModel<PhotoSummaryDTO>> searchPhotos(@RequestParam int page
+
+    ) {
         if (page < 0) {
             return ResponseEntity.badRequest().build();
         }

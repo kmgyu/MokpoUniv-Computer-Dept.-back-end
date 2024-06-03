@@ -47,16 +47,4 @@ public class NoticeDetailDTO {
     private int view = 0; // 조회수
 
 
-    public NoticeEntity toNoticeEntity() {
-        return NoticeEntity.
-            builder()
-                .id(id)
-                .title(title)
-                .author(author)
-                .content(content)
-                .posted_time(posted_time)
-                .view(view)
-                .fileDTOList(fileDTOList)
-                .build();
-    }
 }
