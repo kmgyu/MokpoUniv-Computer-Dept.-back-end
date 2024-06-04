@@ -8,7 +8,7 @@ public class NoticeMapper {
                 .title(noticeEntity.getTitle())
                 .posted_time(noticeEntity.getPosted_time())
                 .view(noticeEntity.getView())
-                .file(noticeEntity.getFileDTOList() != null)
+                .file(!noticeEntity.getFileDTOList().isEmpty())
                 .build();
     }
 

@@ -5,6 +5,7 @@ import lombok.*;
 import org.mokpouniv.computerDept_backend.forum.file.FileDTO;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,7 +42,7 @@ public class NoticeDetailDTO {
      * 파일은 따로 처리 안했지만 첨부파일에 대한 처리가 따로 필요함.
      */
     @Builder.Default
-    private List<FileDTO> fileDTOList = null;
+    private List<FileDTO> fileDTOList = new ArrayList<>();
 
     @Builder.Default
     private int view = 0; // 조회수
