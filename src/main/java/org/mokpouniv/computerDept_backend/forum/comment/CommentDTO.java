@@ -1,4 +1,4 @@
-package org.mokpouniv.computerDept_backend.forum.qna.comment;
+package org.mokpouniv.computerDept_backend.forum.comment;
 
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;

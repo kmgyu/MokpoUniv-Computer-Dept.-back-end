@@ -2,7 +2,7 @@ package org.mokpouniv.computerDept_backend.forum.qna.question;
 
 import lombok.*;
 import org.mokpouniv.computerDept_backend.forum.qna.answer.AnswerDTO;
-import org.mokpouniv.computerDept_backend.forum.qna.comment.CommentDTO;
+import org.mokpouniv.computerDept_backend.forum.comment.CommentDTO;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

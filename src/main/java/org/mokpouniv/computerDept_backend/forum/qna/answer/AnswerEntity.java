@@ -1,7 +1,7 @@
 package org.mokpouniv.computerDept_backend.forum.qna.answer;
 
 import lombok.*;
-import org.mokpouniv.computerDept_backend.forum.qna.comment.CommentEntity;
+import org.mokpouniv.computerDept_backend.forum.comment.CommentEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;

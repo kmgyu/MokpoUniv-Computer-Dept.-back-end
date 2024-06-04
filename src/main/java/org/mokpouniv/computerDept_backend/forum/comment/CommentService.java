@@ -1,4 +1,4 @@
-package org.mokpouniv.computerDept_backend.forum.qna.comment;
+package org.mokpouniv.computerDept_backend.forum.comment;
 
 import lombok.RequiredArgsConstructor;
 import org.mokpouniv.computerDept_backend.forum.qna.answer.AnswerEntity;
@@ -52,6 +52,20 @@ public class CommentService {
         }
     }
 
+    public String deleteComment(String commentId, String questoinId) {
+        QuestionEntity questionEntity = questionRepository.findQuestionEntityById(questoinId);
+        List<CommentEntity> updatedComment = questionEntity.getCommentEntityList();
+        for (int i = 0; i < updatedComment.size(); i++) {
+
+            if (updatedComment.get(i).getId() == commentId) {
+                updatedComment.remove(i);
+                break;
+            }
+        }
+        questionEntity.setCommentEntityList(updatedComment);
+        questionRepository.save(questionEntity);
+        return questoinId;
+    }
 
 //    public List<CommentDTO> findCommentByQuestionId(String questionId) {
 //        List<CommentEntity> resultEntites = commentRepository.findByQuestionId(questionId);

@@ -1,6 +1,6 @@
 package org.mokpouniv.computerDept_backend.forum.qna.answer;
 
-import org.mokpouniv.computerDept_backend.forum.qna.comment.CommentMapper;
+import org.mokpouniv.computerDept_backend.forum.comment.CommentMapper;
 
 import java.util.stream.Collectors;
 
