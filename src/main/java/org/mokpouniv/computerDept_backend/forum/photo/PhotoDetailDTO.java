@@ -2,9 +2,9 @@ package org.mokpouniv.computerDept_backend.forum.photo;
 
 import lombok.*;
 import org.mokpouniv.computerDept_backend.forum.file.FileDTO;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -12,16 +12,19 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PhotoSummaryDTO {
-    private String id;
+public class PhotoDetailDTO {
+    @Builder.Default
+    private String id = UUID.randomUUID().toString();
 
     private String title;
 
     private String author;
 
-    private FileDTO thumbnail;
+    private List<FileDTO> images;
 
-    private int view;
+    @Builder.Default
+    private int view = 0;
 
-    private LocalDateTime posted_time;
+    @Builder.Default
+    private LocalDateTime posted_time = LocalDateTime.now();
 }

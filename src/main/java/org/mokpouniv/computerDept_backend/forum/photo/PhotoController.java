@@ -16,8 +16,8 @@ public class PhotoController {
     private final PhotoService photoService;
 
     @PostMapping("/create")
-    public ResponseEntity<PhotoSummaryDTO> create(@RequestBody PhotoSummaryDTO photoSummaryDTO) {
-        PhotoSummaryDTO result = photoService.createPhoto(photoSummaryDTO);
+    public ResponseEntity<PhotoSummaryDTO> create(@RequestBody PhotoDetailDTO photoDetailDTO) {
+        PhotoSummaryDTO result = photoService.createPhoto(photoDetailDTO);
         return ResponseEntity.created(URI.create("/photo/" + result.getId())).build();
     }
 
@@ -33,6 +33,16 @@ public class PhotoController {
 //      for stable Json Serialize, we need to use PagedModel.
         PagedModel<PhotoSummaryDTO> paged = new PagedModel<>(results);
         return ResponseEntity.ok(paged);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PhotoDetailDTO> getPhoto(@PathVariable String id) {
+        PhotoDetailDTO detailDTO = (photoService.findById(id));
+        if (detailDTO != null) {
+            return ResponseEntity.ok(detailDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

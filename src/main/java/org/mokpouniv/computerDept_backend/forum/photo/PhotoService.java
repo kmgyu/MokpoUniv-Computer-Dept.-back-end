@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,11 +27,16 @@ public class PhotoService {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
 
         return photoRepository.findAll(pageable)
-                .map(PhotoMapper :: toDTO);
+                .map(PhotoMapper :: toSummaryDTO);
     }
 
-    public PhotoSummaryDTO createPhoto(PhotoSummaryDTO photoSummaryDTO) {
-        PhotoEntity resultEntity = photoRepository.save(PhotoMapper.toEntity(photoSummaryDTO));
-        return PhotoMapper.toDTO(resultEntity);
+    public PhotoSummaryDTO createPhoto(PhotoDetailDTO photoDetailDTO) {
+        PhotoEntity resultEntity = photoRepository.save(PhotoMapper.toEntity(photoDetailDTO));
+        return PhotoMapper.toSummaryDTO(resultEntity);
+    }
+
+    public PhotoDetailDTO findById(String id) {
+        Optional<PhotoEntity> photo = photoRepository.findById(id);
+        return photo.map(PhotoMapper::toDetailDTO).orElse(null);
     }
 }

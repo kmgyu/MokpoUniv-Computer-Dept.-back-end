@@ -5,6 +5,7 @@ import org.mokpouniv.computerDept_backend.forum.file.FileDTO;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Document("photo")
 @Getter
@@ -19,7 +20,7 @@ public class PhotoEntity {
 
     private String author;
 
-    private FileDTO thumbnail;
+    private List<FileDTO> images;
 
     private int view;
 
