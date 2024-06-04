@@ -24,7 +24,7 @@ public class LabController {
         String questionId = labService.saveQuestion(labDetailDTO);
 
         if (questionId != null) {
-            return ResponseEntity.created(URI.create("/question/" + questionId)).build();
+            return ResponseEntity.created(URI.create("/lab/" + questionId)).build();
         } else {
             return ResponseEntity.badRequest().build();
         }

@@ -24,7 +24,7 @@ public class HiringController {
         String questionId = hiringService.saveQuestion(hiringDetailDTO);
 
         if (questionId != null) {
-            return ResponseEntity.created(URI.create("/question/" + questionId)).build();
+            return ResponseEntity.created(URI.create("/hiring/" + questionId)).build();
         } else {
             return ResponseEntity.badRequest().build();
         }
