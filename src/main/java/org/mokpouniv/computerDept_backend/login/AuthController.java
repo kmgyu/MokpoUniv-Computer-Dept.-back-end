@@ -1,5 +1,8 @@
 package org.mokpouniv.computerDept_backend.login;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.mokpouniv.computerDept_backend.config.JwtFilter;
@@ -29,6 +32,11 @@ public class AuthController {
      * @param loginDTO
      * @return
      */
+    @ApiOperation(value = "Authenticate and generate JWT token")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful response", response = TokenDTO.class),
+            @ApiResponse(code = 401, message = "Unauthorized")
+    })
     @PostMapping("/authenticate")
     public ResponseEntity<TokenDTO> authorize(@Valid @RequestBody LoginDTO loginDTO) {
         UsernamePasswordAuthenticationToken authenticationToken =
